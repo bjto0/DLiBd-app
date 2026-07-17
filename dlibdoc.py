@@ -91,13 +91,24 @@ st.markdown("""
             - L'installation par pip des librairies Python requises
             - L'installation du service mosquitto ?
             """)
-st.markdown("**Installation de l'OS** : connecter une carte SD vierge à un autre ordinateur et installer Raspberry Pi Os (voir " \
+st.markdown("**Installation de l'OS et mise à jour** : connecter une carte SD vierge à un autre ordinateur et installer Raspberry Pi Os (voir " \
 "https://www.raspberrypi.com/software/). Insérer la carte dans la RPi, définir les paramètres standards. L'identifiant et le mot de passe " \
-"de l'utilisateur root standard (dri par exemple) ont été notés à un endroit approprié.")
-st.markdown("**Activation du SSH pour débogage** : plusieurs techniques existent. L'usage d'un VNC est une possibilité (comme Tiger VNC).")
-st.markdown("**Création d'un environnement virtuel** : ")
-st.markdown("**Librairies Python** : le fichier dlibd_python_dependencies permet d'installer, dans l'environnement virtuel, les librairies " \
-"Python utilisées dans le programme côté micro-ordinateur. Sont installées en pip : paho.mqtt, pymodbus.")
+"de l'utilisateur root standard (dri par exemple) ont été notés à un endroit approprié. Lancer les commandes sudo apt update et sudo apt upgrade pour mettre à jour la machine.")
+st.markdown("**Activation de l'interface VNC pour débogage** : dans les paramètres de la Raspberry. Pour l'ordinateur à distance, utiliser un logiciel comme Tiger VNC.")
+st.markdown("**Installation de DB Browser for SQLite** : voir site internet officiel. Le téléchargement par snap est une technique possible (sudo apt install snap puis " \
+"snap install sqlitebrowser).")
+st.markdown("**Création d'un environnement virtuel** : exécuter python -m venv dlibd-venv pour la création puis source dlibd-venv/bin/activate. " \
+"Dans l'éditeur de code (Geanny ou Thonny), configurer l'interpréteur pour utiliser dlibd-venv/bin/python3.")
+st.markdown("**Librairies Python** : librairies à installer en pip : paho.mqtt, pymodbus, pyserial.")
+st.markdown("**Paramétrage du broker mosquitto** : à réaliser uniquement sur la Raspberry agent ! Pour installer les services, lancer sudo apt install -y mosquitto " \
+"mosquitto-clients. La commande sudo systemctl enable mosquitto.service permet de s'assurer que le service sera démarré automatiquement en même temps que la Raspberry. " \
+"Pour la configuration de l'authentification, il faut d'abord créer un fichier contenant les identifiants et les mots de passe hashés : sudo mosquitto_passwd " \
+"-c etc/mosquitto/passwd dri puis renseigner le mot de passe approprié. Par sécurité, restreindre entièrement les droits aux utilisateurs non-root avec la commande " \
+"sudo chmod 700 /etc/mosquitto/passwd. La configuration du broker intervient ensuite dans le fichier /etc/mosquitto/mosquitto.conf.")
+
+st.markdown("De plus, plusieurs fichiers contenant des informations spécifiques à chaque appareil doivent être modifiés. La base de données SQLite " \
+"available_sensors.db recense l'ensemble des capteurs disponibles (voir plus bas). L'image sensors_location.png est un plan de localisation" \
+"des capteurs.")
 
 st.markdown("### Réseau et ordinateur invité")
 

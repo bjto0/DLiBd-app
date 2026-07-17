@@ -187,12 +187,12 @@ if selected_tool != "Aucun" :
 						# At this point, we can finally switch on the selected tool
 						if selected_tool == "Visualiser historique - tableau" :
 							# Add mean column to df, ignoring NaN values
-							full_df["Moyenne"] = full_df.mean(axis = 1, skipna = True)
+							#full_df["Moyenne"] = full_df.mean(axis = 1, skipna = True)
 							st.write(full_df)
 
 						elif selected_tool == "Visualiser historique - graphique" :
 							# Add mean column to df, ignoring NaN values
-							full_df["Moyenne"] = full_df.mean(axis = 1, skipna = True)
+							#full_df["Moyenne"] = full_df.mean(axis = 1, skipna = True)
 							# st.line_chart is too elementary for us
 							#full_df = full_df.replace(None, np.nan)
 							fig = px.line(full_df, labels = {"datetime": "Date et heure", "value": "Valeur"})

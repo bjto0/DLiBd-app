@@ -9,7 +9,8 @@ def init_values_display_frame () :
 	Initializes default setup to display sensor values.
 	'''
 	building_floors = st.session_state.received_all_sensors[selected_building_mqtt_prefix]["floors"]
-	floor_columns = st.columns(len(building_floors)) # Returns list
+	display_frame = st.empty()
+	floor_columns = display_frame.columns(len(building_floors)) # Returns list
 	for i, floor_data in enumerate(building_floors) :
 		floor_columns[i].markdown(f"## {floor_data["floor_alias"]}") # Add floor alias as level two header
 		for sensor_data in floor_data["sensors"] :
@@ -68,6 +69,7 @@ if selected_building_alias != "Aucun" :
 	# Retrieve sensors by publishing a request (done in a seperate thread)
 	# Don't forget to empty any previously saved value
 	st.session_state.received_all_sensors = {}
+	st.session_state.topics_to_placeholders_values = {}
 	getting_sensors_info = st.info("Récupération des capteurs…")
 	get_all_sensors_threads = []
 	t = GetAllSensorsThread(selected_building_alias, st.session_state.mqtt_client)
